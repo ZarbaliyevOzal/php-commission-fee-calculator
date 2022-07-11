@@ -5,7 +5,8 @@ namespace App\Tests;
 use App\Models\Csv;
 use PHPUnit\Framework\TestCase;
 
-class CsvTest extends TestCase {
+class CsvTest extends TestCase 
+{
 
     use Csv;
 

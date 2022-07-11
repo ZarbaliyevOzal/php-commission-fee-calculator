@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 
-class Withdraw {
+class Withdraw 
+{
 
     /**
      * Commision fee for business clients

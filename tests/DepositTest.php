@@ -5,7 +5,8 @@ namespace App\Tests;
 use App\Models\Deposit;
 use PHPUnit\Framework\TestCase;
 
-final class DepositTest extends TestCase {
+final class DepositTest extends TestCase 
+{
     public function testClassConstructor()
     {
         $GLOBALS['config'] = [

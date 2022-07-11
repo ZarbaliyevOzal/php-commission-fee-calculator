@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-class CurrencyConverter {
+class CurrencyConverter 
+{
     /**
      * Convert currency 
      * @param {Float|Int}  $amount

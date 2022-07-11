@@ -5,7 +5,8 @@ namespace App\Tests;
 use PHPUnit\Framework\TestCase;
 use App\Models\Operation;
 
-final class OperationTest extends TestCase {
+final class OperationTest extends TestCase 
+{
     /**
      * Test class contructor
      */

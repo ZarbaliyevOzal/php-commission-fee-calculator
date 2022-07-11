@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-class Deposit {
+class Deposit 
+{
 
     public $commissionFee;
 
