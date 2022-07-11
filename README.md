@@ -17,12 +17,12 @@ composer install
 
 run in commmand line
 ``
-php index.php input.csv
+php index.php example.csv
 ``
 
-input.csv file is required and must follow example case
+example.csv file is required and must follow example case
 
-Example input.csv
+Example example.csv
 
 ```
 2014-12-31,4,private,withdraw,1200.00,EUR
@@ -40,3 +40,7 @@ Example input.csv
 2016-02-19,5,private,withdraw,3000000,JPY
 ```
 
+# How to run tests
+```
+./vendor/bin/phpunit --verbose tests
+```
