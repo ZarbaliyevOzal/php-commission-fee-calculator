@@ -32,7 +32,7 @@ class Operation
                 }
                 else
                 {
-                    // echo $this->calculateWithdrawCommissionFee($operation)."\n";
+                    echo (new Withdraw)->calculate($operation, $operations)."\n";
                 }
             }
         }
