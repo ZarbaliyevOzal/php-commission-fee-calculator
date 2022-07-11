@@ -24,15 +24,19 @@ class Operation
         $operations = $this->readCsv($this->filepath);
         if (count($operations) > 0) 
         {
-            foreach ($operations as $operation) 
+            for ($i = 0; $i < count($operations); $i++) 
             {
+                $operation = $operations[$i];
+
                 if ($operation['type'] === 'deposit')
                 {
+                    echo "\n\n ------------- Deposit --------------\n";
                     echo (new Deposit)->calculate($operation)."\n";
                 }
                 else
                 {
-                    echo (new Withdraw)->calculate($operation, $operations)."\n";
+                    echo "\n\n\n-----------------------------------\n";
+                    echo (new Withdraw)->calculate($operation, array_slice($operations, 0, $i))."\n";
                 }
             }
         }
