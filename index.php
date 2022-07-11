@@ -44,10 +44,11 @@
 // }
 
 require 'app/bootstrap.php';
-use App\Models\OperationFeeCalculator;
+
+use App\Models\Operation;
 
 $filepath = __DIR__.'/'.$argv[1];
 
-$o = new OperationFeeCalculator($filepath);
+$operation = new Operation($filepath);
 
-echo $o->processOperations();
+echo $operation->processOperations();

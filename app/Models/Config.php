@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-trait Config
+class Config
 {
     /**
      * Get config value
      * @param {String} $key
      * @return {*}
      */
-    public function config($key)
+    public static function get($key)
     {
         return $GLOBALS['config'][$key];
     }
