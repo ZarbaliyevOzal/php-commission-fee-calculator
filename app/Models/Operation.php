@@ -30,12 +30,10 @@ class Operation
 
                 if ($operation['type'] === 'deposit')
                 {
-                    echo "\n\n ------------- Deposit --------------\n";
                     echo (new Deposit)->calculate($operation)."\n";
                 }
                 else
                 {
-                    echo "\n\n\n-----------------------------------\n";
                     echo (new Withdraw)->calculate($operation, array_slice($operations, 0, $i))."\n";
                 }
             }

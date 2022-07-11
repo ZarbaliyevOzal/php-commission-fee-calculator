@@ -40,6 +40,13 @@ class Withdraw {
         if ($operation['user_type'] === 'business') 
             return CalculateCommissionFee::calculate($operation['amount'], $this->commissionFeeBusinessClient);
 
+        $operationAmount = $operation['amount'];
+
+        if ($operation['currency'] !== 'EUR')
+        {
+            $operationAmount = (new CurrencyConverter)->convert($operation['amount'], $operation['currency'], 'EUR');
+        }
+
         $weekStart = Carbon::parse($operation['date'])->startOfWeek(Carbon::MONDAY);
         $weekEnd = Carbon::parse($operation['date'])->endOfWeek(Carbon::SUNDAY);
 
@@ -51,15 +58,17 @@ class Withdraw {
         
         if (count($userThisWeekPreviousOperations) === 0) 
         {
-            if ($operation['amount'] <= 1000) return 0;
-            return CalculateCommissionFee::calculate($operation['amount'] - $this->privateClientsWithdrawLimitPerWeek, 
+            if ($operationAmount <= 1000) return 0;
+            return CalculateCommissionFee::calculate($operationAmount - $this->privateClientsWithdrawLimitPerWeek, 
                 $this->commissionFeePrivateClient);
         }
 
         $totalAmount = array_reduce($userThisWeekPreviousOperations, function($carry, $item) {
-            $carry += $item['amount'];
+            $carry += $item['currency'] === 'EUR' 
+                ? $item['amount'] 
+                : (new CurrencyConverter)->convert($item['amount'], $item['currency'], 'EUR');
             return $carry;
-        }, $operation['amount']);
+        }, $operationAmount);
 
         $exceededAmount = $totalAmount - $this->privateClientsWithdrawLimitPerWeek;
 
@@ -68,18 +77,13 @@ class Withdraw {
          */
         if ($exceededAmount <= 0 && count($userThisWeekPreviousOperations) > 3)
         {   
-            return CalculateCommissionFee::calculate($operation['amount'], $this->commissionFeePrivateClient);
+            return CalculateCommissionFee::calculate($operationAmount, $this->commissionFeePrivateClient);
         }
 
         if ($exceededAmount > 0)
         {
             return CalculateCommissionFee::calculate($exceededAmount, $this->commissionFeePrivateClient);
         }
-
-        // var_dump($exceededAmount);
-        // var_dump('operation date: ' . $operation['date']);
-        // var_dump('start of the week: ' . $weekStart);
-        // var_dump('end of the week: ' . $weekEnd);
 
         return 0;
     }
